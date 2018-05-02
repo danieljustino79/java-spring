@@ -8,6 +8,7 @@
 	<li>Controller, RequestMapping (springframework)</li>
 	<li>Servlet config Spring (AppWebConfiguration)</li>
 	<li>WEB-INF pasta protegida pela Servlet e Resolver</li>
+	<li>CRUD MVC listar JSTL taglib (if, for, function, dateformat)</li>
 </ul>
 
 <%@include file="partials/rodape.jsp" %>
