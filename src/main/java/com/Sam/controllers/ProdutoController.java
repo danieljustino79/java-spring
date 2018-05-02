@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Sam.models.Produto;
 
@@ -17,14 +18,27 @@ public class ProdutoController {
 	
 	@RequestMapping("/produtos")
 	public ModelAndView listar() {
-		Produto obj = new Produto();
-		obj.setNome("Teste");
-		obj.setDescricao("teste de preenchimento.");
-		obj.setValidade(Calendar.getInstance());
-		lista.add(obj);
 				
 		ModelAndView model = new ModelAndView("produto/listar");
 		model.addObject("lista", lista);
+		return model;
+	}
+	
+	@RequestMapping("/produtoAdicionar")
+	public ModelAndView adicionar() {
+		
+		ModelAndView model = new ModelAndView("produto/adicionar");
+		return model;
+	}
+	
+	@RequestMapping("/produtoSalvar")
+	public ModelAndView salvar(Produto produto, RedirectAttributes viewBag) {		
+		
+		lista.add(produto);
+		
+		ModelAndView model = new ModelAndView("redirect:produtos");
+		viewBag.addFlashAttribute("mensagem", "Produto cadastrado com sucesso.");
+		
 		return model;
 	}
 }
