@@ -10,6 +10,7 @@
 	<li>WEB-INF pasta protegida pela Servlet e Resolver</li>
 	<li>CRUD MVC listar JSTL taglib (if, for, function, dateformat)</li>
 	<li>CRUD adicionar, redirect, resources spring-js</li>
+	<li>CRUD editar</li>
 </ul>
 
 <%@include file="partials/rodape.jsp" %>

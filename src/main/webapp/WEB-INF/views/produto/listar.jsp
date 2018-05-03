@@ -7,14 +7,7 @@
 
 <p>Lista de Produtos</p>
 
-<c:if test="${not empty mensagem}">
-  <div class="alert alert-warning alert-dismissible fade show">
-   ${mensagem }
-   <button type="button" class="close" data-dismiss="alert">
-    <span >&times;</span>
-   </button>
-  </div>
-</c:if>
+<%@include file="../partials/mensagem.jsp" %>
 
 <a href="./produtoAdicionar" class="btn btn-primary">Adicionar</a>
 
@@ -28,7 +21,7 @@
 				<td>
 					<fmt:formatDate pattern="dd/MM/yyyy" value="${item.validade.time }" />
 				</td>
-				<td><button>Editar</button></td>
+				<td><a href="./produtoEditar/?id=${item.id }" class="btn btn-primary">Editar</a></td>
 				<td><button>Remover</button></td>
 			</tr>
 			</c:forEach>

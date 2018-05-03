@@ -1,7 +1,6 @@
 package com.Sam.controllers;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -32,13 +31,64 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping("/produtoSalvar")
-	public ModelAndView salvar(Produto produto, RedirectAttributes viewBag) {		
+	public ModelAndView salvar(Produto produto, RedirectAttributes viewBag) {	
 		
-		lista.add(produto);
+		adicionarService(produto);
 		
 		ModelAndView model = new ModelAndView("redirect:produtos");
-		viewBag.addFlashAttribute("mensagem", "Produto cadastrado com sucesso.");
+		viewBag.addFlashAttribute("mensagem", "Produto foi cadastrado com sucesso.");
 		
 		return model;
+	}
+
+	private void adicionarService(Produto produto) {
+		produto.setId(lista.size() + 1);		
+		lista.add(produto);
+	}
+	
+	@RequestMapping("produtoEditar")
+	public ModelAndView editar(Integer id) {
+		
+		Produto produto = lista.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+		
+		if(produto == null) {
+			ModelAndView modelErro = new ModelAndView("produtos");
+			modelErro.addObject("mensagem", "O registro solicitado não existe.");
+		}
+		
+		ModelAndView model = new ModelAndView("produto/editar");		
+		model.addObject("item", produto);
+		
+		return model;
+	}
+	
+	@RequestMapping("produtoSalvarEditar")
+	public ModelAndView salvarEditar(Produto produto, RedirectAttributes viewBag) {
+		
+		Produto produtoAux = obterService(produto);
+		
+		if(produtoAux == null) {
+			ModelAndView modelErro = new ModelAndView("produtos");
+			modelErro.addObject("mensagem", "O registro solicitado não existe.");
+			return modelErro;
+		}
+		
+		alterarService(produto, produtoAux);
+		
+		ModelAndView model = new ModelAndView("redirect:produtoEditar/?id=" + produtoAux.getId());
+		viewBag.addFlashAttribute("mensagem", "Produto foi alterado com sucesso.");
+		
+		return model;
+	}
+
+	private Produto obterService(Produto produto) {
+		Produto produtoAux = lista.stream().filter(x -> x.getId() == produto.getId()).findFirst().orElse(null);
+		return produtoAux;
+	}
+
+	private void alterarService(Produto produto, Produto produtoAux) {
+		int posicao = lista.indexOf(produtoAux);
+		lista.remove(posicao);
+		lista.add(produto);
 	}
 }
