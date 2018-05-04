@@ -11,6 +11,8 @@
 	<li>CRUD MVC listar JSTL taglib (if, for, function, dateformat)</li>
 	<li>CRUD adicionar, redirect, resources spring-js</li>
 	<li>CRUD editar</li>
+	<li>CRUD detalhe URL amigavel (PathVariable)</li>
+	
 </ul>
 
 <%@include file="partials/rodape.jsp" %>
