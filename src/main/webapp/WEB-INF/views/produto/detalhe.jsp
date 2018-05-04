@@ -14,12 +14,12 @@
     <p class="card-text">${item.descricao }</p>
     <fmt:formatDate pattern="dd/MM/yyyy" value="${item.validade.time }" var="validadeFormatada" />
     <p>Validade: ${validadeFormatada }</p>
+    <p><a href="${host }/produtoDetalhe/${item.id}.json">Json</a></p>
   </div>
 </div>
 </div>
 </div>
 <br>
 <a href="<c:url value='/produtos'/>" class="btn btn-secondary">Voltar</a>
-https://cursos.alura.com.br/course/springmvc-2-integracao-cache-seguranca-e-templates/task/12234
 
 <%@include file="../partials/rodape.jsp" %>

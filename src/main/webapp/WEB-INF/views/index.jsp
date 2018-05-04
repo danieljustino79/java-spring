@@ -12,7 +12,7 @@
 	<li>CRUD adicionar, redirect, resources spring-js</li>
 	<li>CRUD editar</li>
 	<li>CRUD detalhe URL amigavel (PathVariable)</li>
-	
+	<li>CRUD remover post, Json (com.fasterxml.jackson.core, ViewResolver)</li>
 </ul>
 
 <%@include file="partials/rodape.jsp" %>

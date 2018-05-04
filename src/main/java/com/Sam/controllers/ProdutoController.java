@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -19,6 +20,7 @@ public class ProdutoController {
 	public List<Produto> lista = new ArrayList<Produto>();
 	
 	public ProdutoController() {
+		//seed
 		Produto obj = new Produto();
 		obj.setId(1);
 		obj.setNome("Sam");
@@ -42,6 +44,19 @@ public class ProdutoController {
 		Produto produtoAux = lista.stream().filter(x -> x.getId() == id).findFirst().orElse(null);
 		return produtoAux;
 	}
+	
+	private boolean removerService(int id) {		
+		Produto obj = obterPorIdService(id);
+		if(obj == null) {
+			return false;
+		}
+		else {
+			int posicao = lista.indexOf(obj);
+			lista.remove(posicao);
+			return true;
+		}
+	}
+	
 	
 	@RequestMapping("/produtos")
 	public ModelAndView listar() {
@@ -77,6 +92,7 @@ public class ProdutoController {
 		if(produto == null) {
 			ModelAndView modelErro = new ModelAndView("produtos");
 			modelErro.addObject("mensagem", "O registro solicitado não existe.");
+			return modelErro;
 		}
 		
 		ModelAndView model = new ModelAndView("produto/editar");		
@@ -113,5 +129,20 @@ public class ProdutoController {
 		return model;
 	}
 	
+	@RequestMapping("produtoRemover/{id}")
+	@ResponseBody
+	public Produto remover(@PathVariable("id") int id) {
+		return obterPorIdService(id);
+	}
 	
+	@RequestMapping(value="produtoRemoverConfirmar", method=RequestMethod.POST)
+	public ModelAndView removerConfirmar(int id, RedirectAttributes viewBag) {
+		
+		removerService(id);
+		
+		ModelAndView model = new ModelAndView("redirect:produtos");
+		viewBag.addFlashAttribute("mensagem", "Produto foi removido com sucesso.");
+		
+		return model;
+	}	
 }
